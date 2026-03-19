@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY FINAL FILE – Your Life's Assets. One Secure File.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&family=Noto+Sans+Devanagari:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-dim: #9b7c37;
+    --cream: #f4ede0;
+    --ink: #0a0806;
+    --deep: #100e0b;
+    --smoke: #1e1a14;
+    --ember: #8b2c0a;
+    --ash: #3a3530;
+    --text-dim: #7a7060;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(10,8,6,0.95) 0%, transparent 100%);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--cream); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 50% 100%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 30%, rgba(139,44,10,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 80% at 80% 80%, rgba(16,14,11,1) 0%, transparent 100%),
+      var(--deep);
+  }
+
+  /* Animated particles */
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 24px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.5s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 10vw, 128px);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 0.8s forwards;
+  }
+
+  .hero-title span {
+    display: block;
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .hero-hindi {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 300;
+    color: var(--text-dim);
+    margin-top: 16px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 1.2s forwards;
+  }
+
+  .hero-tagline {
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-style: italic;
+    color: var(--text-dim);
+    margin-top: 32px;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 1.4s forwards;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 56px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 1.8s forwards;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    border: none;
+    cursor: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cream);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .btn-primary:hover::before { transform: scaleX(1); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    border: 1px solid var(--ash);
+    cursor: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 2.5s forwards;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+  .scroll-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  /* CINEMATIC DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 48px;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--ash); }
+  .divider-icon {
+    font-size: 18px;
+    color: var(--gold);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* PROBLEM SECTION */
+  #problem {
+    padding: 140px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .problem-stat {
+    font-size: clamp(72px, 10vw, 120px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--ember);
+    font-style: italic;
+    opacity: 0.15;
+    display: block;
+  }
+
+  .problem-text h2 {
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+  .problem-text h2 em { color: var(--gold); font-style: italic; }
+
+  .problem-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  .problem-hindi-quote {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 20px;
+    color: var(--gold);
+    line-height: 1.6;
+    padding: 32px;
+    border-left: 2px solid var(--gold);
+    background: rgba(201,168,76,0.03);
+    margin-top: 40px;
+  }
+
+  /* FEATURES */
+  #features {
+    padding: 140px 0;
+    background: var(--smoke);
+    overflow: hidden;
+    position: relative;
+  }
+
+  #features::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ash), transparent);
+  }
+
+  .features-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 80px;
+    padding: 0 48px;
+  }
+
+  .features-header h2 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+  .features-header h2 em { color: var(--gold); font-style: italic; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .feature-card {
+    padding: 48px 40px;
+    border: 1px solid var(--ash);
+    border-right: none;
+    position: relative;
+    transition: background 0.4s ease;
+    overflow: hidden;
+  }
+  .feature-card:last-child { border-right: 1px solid var(--ash); }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  .feature-card:hover::before { transform: scaleX(1); }
+  .feature-card:hover { background: rgba(201,168,76,0.03); }
+
+  .feature-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 24px;
+  }
+
+  .feature-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .feature-card h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-card p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  .feature-hindi {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 13px;
+    color: var(--gold-dim);
+    margin-top: 16px;
+  }
+
+  /* SCREENS SECTION */
+  #screens {
+    padding: 140px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .screens-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+  }
+
+  .screens-header h2 {
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+  .screens-header h2 em { color: var(--gold); font-style: italic; }
+
+  .screens-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+  }
+  .screens-scroll::-webkit-scrollbar { display: none; }
+
+  .phone-mockup {
+    flex-shrink: 0;
+    width: 260px;
+    scroll-snap-align: start;
+  }
+
+  .phone-frame {
+    background: var(--ink);
+    border: 2px solid var(--ash);
+    border-radius: 32px;
+    padding: 16px;
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .phone-frame:hover {
+    border-color: var(--gold);
+    transform: translateY(-8px);
+  }
+
+  .phone-notch {
+    width: 80px;
+    height: 20px;
+    background: var(--deep);
+    border-radius: 0 0 12px 12px;
+    margin: 0 auto 16px;
+  }
+
+  .phone-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .phone-screen-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  /* Screen styles */
+  .screen-dashboard { background: linear-gradient(135deg, var(--deep) 0%, var(--smoke) 100%); border-radius: 16px; padding: 16px; flex: 1; }
+  .screen-asset-item { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.15); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+  .screen-asset-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .screen-asset-label { font-size: 11px; color: var(--cream); font-family: 'Space Mono', monospace; letter-spacing: 0.05em; }
+  .screen-asset-val { font-size: 10px; color: var(--gold-dim); font-family: 'Space Mono', monospace; margin-left: auto; }
+  .screen-total { border-top: 1px solid var(--ash); padding-top: 12px; margin-top: 8px; display: flex; justify-content: space-between; align-items: baseline; }
+  .screen-total-label { font-size: 9px; color: var(--text-dim); font-family: 'Space Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+  .screen-total-val { font-size: 18px; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+  .phone-label {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* INPUT FIELD MOCKUP */
+  .mock-input { background: rgba(255,255,255,0.04); border: 1px solid var(--ash); border-radius: 6px; padding: 8px 12px; margin-bottom: 8px; font-size: 11px; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+  .mock-btn { background: var(--gold); color: var(--ink); font-size: 10px; font-family: 'Space Mono', monospace; text-align: center; padding: 10px; border-radius: 6px; letter-spacing: 0.1em; margin-top: 8px; }
+  .mock-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+  .mock-tab { flex: 1; background: rgba(255,255,255,0.04); border-radius: 4px; padding: 5px 2px; text-align: center; font-size: 7px; color: var(--text-dim); font-family: 'Space Mono', monospace; letter-spacing: 0.03em; }
+  .mock-tab.active { background: var(--gold); color: var(--ink); }
+
+  /* PRICING */
+  #pricing {
+    padding: 140px 48px;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #pricing::before {
+    content: 'MY FINAL FILE';
+    position: absolute;
+    font-size: 200px;
+    font-weight: 300;
+    font-family: 'Cormorant Garamond', serif;
+    color: rgba(201,168,76,0.02);
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .pricing-inner { max-width: 1200px; margin: 0 auto; }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .pricing-header h2 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+  .pricing-header h2 em { color: var(--gold); font-style: italic; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--ash);
+  }
+
+  .pricing-card {
+    padding: 56px 40px;
+    border-right: 1px solid var(--ash);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .pricing-card:last-child { border-right: none; }
+  .pricing-card.featured { background: rgba(201,168,76,0.04); }
+  .pricing-card.featured::after {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: 0; right: 0;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 6px 16px;
+  }
+
+  .plan-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .plan-price {
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .plan-period {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    margin-bottom: 40px;
+  }
+
+  .plan-features {
+    list-style: none;
+    margin-bottom: 40px;
+  }
+  .plan-features li {
+    font-size: 15px;
+    color: var(--text-dim);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(58,53,48,0.5);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 300;
+  }
+  .plan-features li::before {
+    content: '—';
+    color: var(--gold);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* EMERGENCY ACCESS VISUAL */
+  #emergency {
+    padding: 140px 48px;
+    background: var(--smoke);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .emergency-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .emergency-visual {
+    position: relative;
+    height: 440px;
+  }
+
+  .emv-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-ring 4s ease-in-out infinite;
+  }
+
+  .emv-ring:nth-child(1) { width: 120px; height: 120px; animation-delay: 0s; }
+  .emv-ring:nth-child(2) { width: 220px; height: 220px; animation-delay: 0.7s; border-color: rgba(201,168,76,0.08); }
+  .emv-ring:nth-child(3) { width: 340px; height: 340px; animation-delay: 1.4s; border-color: rgba(201,168,76,0.04); }
+  .emv-ring:nth-child(4) { width: 440px; height: 440px; animation-delay: 2.1s; border-color: rgba(201,168,76,0.02); }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.6; }
+  }
+
+  .emv-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px; height: 80px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    z-index: 2;
+  }
+
+  .emergency-text h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  .emergency-text h2 em { color: var(--gold); font-style: italic; }
+
+  .emergency-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-dim);
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  .emergency-rule {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 20px 24px;
+    border-radius: 2px;
+    margin-top: 32px;
+  }
+  .emergency-rule-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .emergency-rule-text {
+    font-size: 16px;
+    color: var(--cream);
+    font-style: italic;
+  }
+
+  /* TRUST */
+  #trust {
+    padding: 140px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #trust h2 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  #trust h2 em { color: var(--gold); font-style: italic; }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 80px;
+    border: 1px solid var(--ash);
+  }
+
+  .trust-item {
+    padding: 48px 32px;
+    border-right: 1px solid var(--ash);
+    transition: background 0.3s;
+  }
+  .trust-item:last-child { border-right: none; }
+  .trust-item:hover { background: rgba(201,168,76,0.03); }
+
+  .trust-icon { font-size: 40px; margin-bottom: 16px; display: block; }
+  .trust-title { font-size: 18px; margin-bottom: 8px; font-weight: 400; }
+  .trust-desc { font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 300; }
+
+  /* FINAL CTA */
+  #cta {
+    padding: 160px 48px;
+    background: var(--deep);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #cta::before {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 400px;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  #cta h2 {
+    font-size: clamp(48px, 8vw, 100px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  #cta h2 em { color: var(--gold); font-style: italic; }
+
+  #cta .sub {
+    font-size: 20px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 56px;
+    font-weight: 300;
+  }
+
+  .cta-hindi {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 18px;
+    color: var(--gold-dim);
+    margin-top: 48px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 48px;
+    border-top: 1px solid var(--ash);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .footer-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--cream); }
+
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .problem-grid, .emergency-inner { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: repeat(2, 1fr); }
+    #problem, #screens, #trust, #cta { padding: 80px 24px; }
+    .screens-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .hero-cta-group { flex-direction: column; align-items: center; }
+    .divider { padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">My Final File</div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#screens">App</a></li>
+    <li><a href="#pricing">Plans</a></li>
+    <li><a href="#trust">Security</a></li>
+  </ul>
+  <a href="#cta" class="btn-primary" style="padding:12px 28px;font-size:10px;"><span>Download App</span></a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">India's First Digital Estate Vault</p>
+    <h1 class="hero-title">
+      My Final
+      <span>File</span>
+    </h1>
+    <p class="hero-hindi">आपकी विरासत। सुरक्षित। हमेशा के लिए।</p>
+    <p class="hero-tagline">Your Life's Assets. One Secure File.</p>
+    <div class="hero-cta-group">
+      <a href="#" class="btn-primary"><span>▶ Get on Android</span></a>
+      <a href="#features" class="btn-secondary">Discover More</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<div class="divider" style="padding-top:0; padding-bottom:0; margin:0 auto;">
+  <div class="divider-line"></div>
+  <div class="divider-icon">❧</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-grid reveal">
+    <div>
+      <p class="section-label">The Problem</p>
+      <div style="position:relative;">
+        <span class="problem-stat">₹1L Cr</span>
+        <p style="font-family:'Space Mono',monospace; font-size:12px; color:var(--text-dim); letter-spacing:0.1em; margin-top:-20px; margin-bottom:40px;">Unclaimed assets in India</p>
+      </div>
+      <div class="problem-hindi-quote">
+        "अगर आज आपको कुछ हो जाए,<br>
+        तो आपकी मेहनत की कमाई<br>
+        आपके परिवार तक पहुँचेगी या नहीं?"
+      </div>
+    </div>
+    <div class="problem-text">
+      <h2>Your family deserves to <em>know</em> what you've built.</h2>
+      <p>Every year, thousands of crores in stocks, mutual funds, insurance policies, and bank accounts go unclaimed — not because they were lost, but because no one knew they existed.</p>
+      <br>
+      <p>My Final File changes that. A secure digital vault that ensures your legacy reaches the people who matter most.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">❧</div><div class="divider-line"></div></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="features-header reveal">
+    <p class="section-label" style="text-align:center;">What We Offer</p>
+    <h2>Everything your<br>family will <em>need</em></h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-number">01</div>
+      <span class="feature-icon">🏦</span>
+      <h3>Asset Vault</h3>
+      <p>Store every financial asset — stocks, mutual funds, bank accounts, insurance, crypto, property — in one encrypted place.</p>
+      <p class="feature-hindi">संपत्ति सुरक्षित करें</p>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.1s">
+      <div class="feature-number">02</div>
+      <span class="feature-icon">👨‍👩‍👧</span>
+      <h3>Nominee Setup</h3>
+      <p>Add nominees with their details and legal authorization. They'll have everything they need, right when they need it.</p>
+      <p class="feature-hindi">उत्तराधिकारी जोड़ें</p>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.2s">
+      <div class="feature-number">03</div>
+      <span class="feature-icon">📄</span>
+      <h3>Document Store</h3>
+      <p>Upload and organize critical documents — wills, deeds, certificates — all encrypted and instantly accessible.</p>
+      <p class="feature-hindi">दस्तावेज़ सुरक्षित करें</p>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.3s">
+      <div class="feature-number">04</div>
+      <span class="feature-icon">🔓</span>
+      <h3>Emergency Access</h3>
+      <p>Set custom access rules — activate after inactivity, on confirmation, or with a death certificate. You decide the triggers.</p>
+      <p class="feature-hindi">आपातकालीन पहुँच</p>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.4s">
+      <div class="feature-number">05</div>
+      <span class="feature-icon">⚖️</span>
+      <h3>Legal Support</h3>
+      <p>Connect with verified CAs and lawyers for succession planning, claims, and legal documentation.</p>
+      <p class="feature-hindi">कानूनी सहायता</p>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.5s">
+      <div class="feature-number">06</div>
+      <span class="feature-icon">🔒</span>
+      <h3>Bank-Grade Security</h3>
+      <p>AES-256 encryption, OTP authentication, and zero third-party data sharing. Your privacy is absolute.</p>
+      <p class="feature-hindi">बैंक-स्तरीय सुरक्षा</p>
+    </div>
+  </div>
+</section>
+
+<!-- APP SCREENS -->
+<section id="screens">
+  <div class="screens-header reveal">
+    <div>
+      <p class="section-label">The App</p>
+      <h2>Designed for<br><em>every Indian family</em></h2>
+    </div>
+    <p style="font-size:15px; color:var(--text-dim); max-width:300px; font-weight:300; line-height:1.7;">Hindi + English. Simple. Secure. Built for how Indian families actually work.</p>
+  </div>
+
+  <div class="screens-scroll">
+    <!-- Screen 1: Splash -->
+    <div class="phone-mockup reveal">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" style="justify-content:center; align-items:center; text-align:center;">
+          <div style="font-size:48px; margin-bottom:16px;">🗂️</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:24px; color:var(--gold); margin-bottom:8px;">My Final File</div>
+          <div style="font-size:11px; color:var(--text-dim); font-family:'Space Mono',monospace; letter-spacing:0.1em; margin-bottom:4px;">YOUR LIFE'S ASSETS</div>
+          <div style="font-family:'Noto Sans Devanagari',sans-serif; font-size:11px; color:var(--text-dim); margin-bottom:40px;">एक सुरक्षित फाइल</div>
+          <div style="display:flex; gap:8px;">
+            <div style="background:var(--gold); color:var(--ink); font-size:10px; font-family:'Space Mono',monospace; padding:8px 16px; border-radius:3px;">English</div>
+            <div style="background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3); color:var(--cream); font-size:10px; font-family:'Space Mono',monospace; padding:8px 16px; border-radius:3px;">हिंदी</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-label">LANGUAGE SELECT</p>
+    </div>
+
+    <!-- Screen 2: Dashboard -->
+    <div class="phone-mockup reveal" style="transition-delay:0.1s">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-screen-title">DASHBOARD</div>
+          <div class="mock-tabs">
+            <div class="mock-tab active">Assets</div>
+            <div class="mock-tab">Nominees</div>
+            <div class="mock-tab">Docs</div>
+            <div class="mock-tab">Access</div>
+          </div>
+          <div class="screen-dashboard">
+            <div class="screen-asset-item">
+              <div class="screen-asset-dot"></div>
+              <div class="screen-asset-label">HDFC Bank</div>
+              <div class="screen-asset-val">₹4.2L</div>
+            </div>
+            <div class="screen-asset-item">
+              <div class="screen-asset-dot" style="background:#4ecdc4;"></div>
+              <div class="screen-asset-label">Zerodha MF</div>
+              <div class="screen-asset-val">₹12.8L</div>
+            </div>
+            <div class="screen-asset-item">
+              <div class="screen-asset-dot" style="background:#e8a838;"></div>
+              <div class="screen-asset-label">LIC Policy</div>
+              <div class="screen-asset-val">₹25L</div>
+            </div>
+            <div class="screen-asset-item">
+              <div class="screen-asset-dot" style="background:#a084e8;"></div>
+              <div class="screen-asset-label">Property</div>
+              <div class="screen-asset-val">₹85L</div>
+            </div>
+            <div class="screen-total">
+              <span class="screen-total-label">Total Estate</span>
+              <span class="screen-total-val">₹1.27 Cr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-label">MY ASSETS</p>
+    </div>
+
+    <!-- Screen 3: Add Asset -->
+    <div class="phone-mockup reveal" style="transition-delay:0.2s">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-screen-title">ADD ASSET — संपत्ति जोड़ें</div>
+          <div class="mock-input">Institution Name</div>
+          <div class="mock-input">Account / Folio No.</div>
+          <div class="mock-input">Asset Type ▾</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;">
+            <div style="background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3); color:var(--gold); font-size:8px; font-family:'Space Mono',monospace; padding:4px 8px; border-radius:3px;">Stocks</div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--ash); color:var(--text-dim); font-size:8px; font-family:'Space Mono',monospace; padding:4px 8px; border-radius:3px;">MF</div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--ash); color:var(--text-dim); font-size:8px; font-family:'Space Mono',monospace; padding:4px 8px; border-radius:3px;">Bank</div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--ash); color:var(--text-dim); font-size:8px; font-family:'Space Mono',monospace; padding:4px 8px; border-radius:3px;">Insurance</div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--ash); color:var(--text-dim); font-size:8px; font-family:'Space Mono',monospace; padding:4px 8px; border-radius:3px;">Crypto</div>
+          </div>
+          <div class="mock-input" style="min-height:48px; color:var(--ash);">Notes...</div>
+          <div class="mock-btn">+ संपत्ति जोड़ें / Add Asset</div>
+        </div>
+      </div>
+      <p class="phone-label">ADD ASSET</p>
+    </div>
+
+    <!-- Screen 4: Nominee -->
+    <div class="phone-mockup reveal" style="transition-delay:0.3s">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-screen-title">NOMINEES — उत्तराधिकारी</div>
+          <div style="background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.15); border-radius:8px; padding:14px; margin-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+              <div style="width:32px; height:32px; background:var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0;">👩</div>
+              <div>
+                <div style="font-size:12px; color:var(--cream); font-family:'Space Mono',monospace;">Priya Sharma</div>
+                <div style="font-size:9px; color:var(--gold-dim); font-family:'Space Mono',monospace; letter-spacing:0.1em;">SPOUSE • PRIMARY</div>
+              </div>
+            </div>
+            <div style="font-size:9px; color:var(--text-dim); font-family:'Space Mono',monospace; letter-spacing:0.05em;">Access: After 30 days inactivity</div>
+          </div>
+          <div class="mock-input">Nominee Name</div>
+          <div class="mock-input">Relation ▾</div>
+          <div class="mock-input">Mobile Number</div>
+          <div class="mock-btn" style="background:transparent; border:1px solid var(--gold); color:var(--gold);">+ Add Nominee</div>
+        </div>
+      </div>
+      <p class="phone-label">NOMINEES</p>
+    </div>
+
+    <!-- Screen 5: Emergency -->
+    <div class="phone-mockup reveal" style="transition-delay:0.4s">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-screen-title">EMERGENCY ACCESS</div>
+          <div style="text-align:center; padding:20px 0;">
+            <div style="font-size:40px; margin-bottom:8px;">🔐</div>
+            <div style="font-size:11px; color:var(--text-dim); font-family:'Space Mono',monospace; letter-spacing:0.1em; margin-bottom:16px;">ACCESS RULE ACTIVE</div>
+          </div>
+          <div style="background:rgba(139,44,10,0.1); border:1px solid rgba(139,44,10,0.3); border-radius:6px; padding:14px; margin-bottom:10px;">
+            <div style="font-size:9px; color:#e87b38; font-family:'Space Mono',monospace; letter-spacing:0.15em; margin-bottom:6px;">TRIGGER CONDITION</div>
+            <div style="font-size:11px; color:var(--cream); line-height:1.5; font-family:'Cormorant Garamond',serif; font-style:italic;">"Grant access after 30 days of inactivity + death proof"</div>
+          </div>
+          <div style="background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:6px; padding:14px;">
+            <div style="font-size:9px; color:var(--gold); font-family:'Space Mono',monospace; letter-spacing:0.15em; margin-bottom:6px;">HINDI</div>
+            <div style="font-size:11px; color:var(--cream); font-family:'Noto Sans Devanagari',sans-serif; line-height:1.5;">आपातकालीन पहुँच नियम सक्रिय है</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-label">EMERGENCY ACCESS</p>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section id="emergency">
+  <div class="emergency-inner">
+    <div class="emergency-visual reveal">
+      <div class="emv-ring"></div>
+      <div class="emv-ring"></div>
+      <div class="emv-ring"></div>
+      <div class="emv-ring"></div>
+      <div class="emv-center">🔐</div>
+    </div>
+    <div class="emergency-text reveal" style="transition-delay:0.2s">
+      <p class="section-label">Smart Access</p>
+      <h2>You decide<br>when they <em>see it</em></h2>
+      <p>Emergency access doesn't mean giving up control. You set the exact conditions under which your nominees can access your vault.</p>
+      <p>Inactivity triggers. Document verification. Time delays. You define the rules — My Final File enforces them.</p>
+      <div class="emergency-rule">
+        <div class="emergency-rule-label">Example Rule</div>
+        <div class="emergency-rule-text">"Grant access after 30 days of inactivity + death proof upload by nominee"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header reveal">
+      <p class="section-label">Plans</p>
+      <h2>Simple,<br><em>transparent</em> pricing</h2>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <p class="plan-name">Free</p>
+        <div class="plan-price">₹0</div>
+        <p class="plan-period">Forever / हमेशा के लिए</p>
+        <ul class="plan-features">
+          <li>Up to 3 assets</li>
+          <li>1 nominee</li>
+          <li>Basic document store</li>
+          <li>OTP login</li>
+        </ul>
+        <a href="#" class="btn-secondary" style="width:100%; text-align:center;">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <p class="plan-name">Family</p>
+        <div class="plan-price">₹499</div>
+        <p class="plan-period">Per year / प्रति वर्ष</p>
+        <ul class="plan-features">
+          <li>Unlimited assets</li>
+          <li>5 nominees</li>
+          <li>Emergency access rules</li>
+          <li>Document vault 1GB</li>
+          <li>Legal templates</li>
+        </ul>
+        <a href="#" class="btn-primary" style="width:100%; text-align:center;"><span>Choose Family</span></a>
+      </div>
+      <div class="pricing-card">
+        <p class="plan-name">Legacy</p>
+        <div class="plan-price">₹999</div>
+        <p class="plan-period">Per year / प्रति वर्ष</p>
+        <ul class="plan-features">
+          <li>Everything in Family</li>
+          <li>Unlimited nominees</li>
+          <li>CA / Lawyer connect</li>
+          <li>Document vault 10GB</li>
+          <li>Priority support</li>
+          <li>White-glove onboarding</li>
+        </ul>
+        <a href="#" class="btn-secondary" style="width:100%; text-align:center;">Go Legacy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <p class="section-label reveal">Security & Trust</p>
+  <h2 class="reveal">Built on <em>trust</em>.<br>Secured by science.</h2>
+  <div class="trust-grid reveal">
+    <div class="trust-item">
+      <span class="trust-icon">🛡️</span>
+      <div class="trust-title">AES-256 Encryption</div>
+      <div class="trust-desc">Military-grade encryption for every file, every field, every byte stored on our servers.</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">📱</span>
+      <div class="trust-title">OTP Authentication</div>
+      <div class="trust-desc">No passwords. Every login verified by OTP to your registered mobile number.</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">🚫</span>
+      <div class="trust-title">Zero Data Sharing</div>
+      <div class="trust-desc">Your data is never sold, shared, or used for advertising. Ever. Guaranteed.</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">📜</span>
+      <div class="trust-title">Legally Compliant</div>
+      <div class="trust-desc">Compliant with Indian IT Act and data protection guidelines. Lawyer-reviewed terms.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <p class="section-label reveal">Start Today</p>
+  <h2 class="reveal">Secure your<br><em>legacy</em> now.</h2>
+  <p class="sub reveal">Your family's peace of mind starts with one download.</p>
+  <div class="reveal">
+    <a href="#" class="btn-primary" style="font-size:14px; padding:22px 56px; margin-right:16px;"><span>▶ Download on Android</span></a>
+    <a href="#" class="btn-secondary" style="font-size:14px; padding:22px 56px;">Learn More</a>
+  </div>
+  <p class="cta-hindi reveal" style="transition-delay:0.3s">सुरक्षित करें, जो सबसे ज़रूरी है।</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">My Final File</div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Partner</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 My Final File. All rights reserved.</div>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) *.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .feature-card, .trust-item, .pricing-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+    ring.style.width = '60px';
+    ring.style.height = '60px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px';
+    cursor.style.height = '12px';
+    ring.style.width = '40px';
+    ring.style.height = '40px';
+  });
+});
+
+// PARTICLES
+const particleContainer = document.getElementById('particles');
+for (let i = 0; i < 40; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.left = Math.random() * 100 + '%';
+  p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+  p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+  p.style.animationDelay = (Math.random() * 15) + 's';
+  particleContainer.appendChild(p);
+}
+
+// SCROLL REVEAL
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+revealEls.forEach(el => observer.observe(el));
+
+// PARALLAX HERO
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.querySelector('.hero-content').style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+});
+</script>
+</body>
+</html>
